@@ -1,27 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { PageRegistryService } from '../../core/services/page-registry.service';
-import { skip } from 'rxjs';
+import { Observable, skip } from 'rxjs';
+import { ResolvedPageMetadata } from '../../core/models/page-metadata.model';
+import { AsyncPipe } from '@angular/common';
+import { EuiBadge } from 'ensemble-ui/angular';
 
 @Component({
     selector: 'eui-playground',
     templateUrl: './playground.html',
-    styleUrls: ['./playground.scss']
+    styleUrls: ['./playground.scss'],
+    imports: [AsyncPipe, EuiBadge]
 })
-export class PlaygroundComponent implements OnInit {
+export class PlaygroundComponent implements OnInit, AfterViewInit {
+
+    readonly currentPage$: Observable<ResolvedPageMetadata | null>;
 
     constructor(
         private readonly route: ActivatedRoute,
         private readonly router: Router,
         private readonly pageService: PageRegistryService
     ) {
-        this.pageService.currentComponent$.pipe(skip(1)).subscribe(x => {
+        this.currentPage$ = this.pageService.currentPage$;
+
+        this.pageService.currentPage$.pipe(skip(1)).subscribe(x => {
             if (!x) { this.router.navigate(['/not-found']); return; }
+            console.log(x);
+        })
+    }
+    ngAfterViewInit(): void {
+        this.currentPage$.subscribe(x => {
+            if (!x) return;
 
             console.log(x);
+            
 
+            const element = document.createElement(x.element.componentTag)
+            if (x.element.componentClass) element.classList.add(x.element.componentClass)
 
+            const elementContainer = document.querySelector(".element-container")
+            elementContainer?.appendChild(element)
 
         })
     }

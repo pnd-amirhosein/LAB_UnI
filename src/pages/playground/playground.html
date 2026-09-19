@@ -1,1 +1,12 @@
-<span>Hey! This is playground!</span>
+@if (currentPage$ | async; as page) {
+<span class="head-area">
+    <h1>{{ page.title }}</h1>
+    @for (badge of page.badges; track $index) {
+    <eui-badge type="text" color="primary">{{badge.text}}</eui-badge>
+    }
+</span>
+<span>{{ page.description }}</span>
+<span class="element-container">
+    <span>hi</span>
+</span>
+}
