@@ -6,12 +6,14 @@ import { Observable, skip } from 'rxjs';
 import { ResolvedPageMetadata } from '../../core/models/page-metadata.model';
 import { AsyncPipe } from '@angular/common';
 import { EuiBadge } from 'ensemble-ui/angular';
+import { PropertiesComponent } from './components/properties/properties';
+import { TokensComponent } from './components/tokens/tokens';
 
 @Component({
     selector: 'eui-playground',
     templateUrl: './playground.html',
     styleUrls: ['./playground.scss'],
-    imports: [AsyncPipe, EuiBadge]
+    imports: [AsyncPipe, EuiBadge, PropertiesComponent, TokensComponent]
 })
 export class PlaygroundComponent implements OnInit, AfterViewInit {
 
@@ -34,7 +36,7 @@ export class PlaygroundComponent implements OnInit, AfterViewInit {
             if (!x) return;
 
             console.log(x);
-            
+
 
             const element = document.createElement(x.element.componentTag)
             if (x.element.componentClass) element.classList.add(x.element.componentClass)

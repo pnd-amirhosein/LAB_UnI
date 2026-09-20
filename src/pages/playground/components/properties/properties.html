@@ -1,0 +1,10 @@
+@if (props$ | async; as props) {
+@for (prop of props; track prop.name) {
+<div>
+    {{ prop.name }}
+</div>
+<div>
+    {{ prop.defaultValue }}
+</div>
+}
+}

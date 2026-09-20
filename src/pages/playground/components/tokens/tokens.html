@@ -1,0 +1,10 @@
+@if (tokens$ | async; as tokens) {
+@for (token of tokens; track token.name) {
+<div>
+    {{ token.name }}
+</div>
+<div>
+    {{ token.value }}
+</div>
+}
+}
