@@ -1,5 +1,6 @@
 @if (tokens$ | async; as tokens) {
 @for (token of tokens; track token.name) {
+<div class="preview" [style.background-color]="token.value"></div>
 <div>
     {{ token.name }}
 </div>
