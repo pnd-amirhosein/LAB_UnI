@@ -1,0 +1,144 @@
+:host {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  min-width: 0;
+  min-height: 0;
+}
+
+
+.canvas {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  cursor: grab;
+  user-select: none;
+
+  touch-action: none;
+
+  background-color: #181818;
+
+  /*
+   * Infinite-looking coordinate grid.
+   *
+   * Position and spacing are controlled from
+   * Angular so the grid follows pan + zoom.
+   */
+  background-image:
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.12) 1px,
+      transparent 1px
+    );
+
+  background-repeat: repeat;
+}
+
+
+.canvas--dragging {
+  cursor: grabbing;
+}
+
+
+.canvas-world {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  /*
+   * Translation only.
+   *
+   * DO NOT add scale() here.
+   */
+  transform-origin: 0 0;
+
+  will-change: transform;
+}
+
+
+.canvas-zoom {
+  /*
+   * CSS zoom is applied inline by Angular:
+   *
+   * zoom: this.zoom
+   *
+   * This is deliberately separated from the
+   * translated world layer.
+   */
+  position: relative;
+}
+
+
+.canvas-content {
+  position: absolute;
+
+  /*
+   * World coordinate (0, 0) represents the
+   * center of our preview.
+   */
+  transform: translate(-50%, -50%);
+}
+
+
+.canvas-toolbar {
+  position: absolute;
+
+  left: 50%;
+  bottom: 16px;
+
+  transform: translateX(-50%);
+
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+
+  gap: 4px;
+
+  padding: 4px;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.08);
+
+  border-radius: 8px;
+
+  background:
+    rgba(30, 30, 30, 0.92);
+
+  backdrop-filter:
+    blur(8px);
+}
+
+
+.canvas-toolbar button {
+  min-width: 32px;
+  height: 32px;
+
+  padding: 0 10px;
+
+  border: 0;
+  border-radius: 6px;
+
+  color: #ffffff;
+
+  background:
+    rgba(255, 255, 255, 0.06);
+
+  cursor: pointer;
+
+  transition:
+    background-color 120ms ease;
+}
+
+
+.canvas-toolbar button:hover {
+  background:
+    rgba(255, 255, 255, 0.12);
+}

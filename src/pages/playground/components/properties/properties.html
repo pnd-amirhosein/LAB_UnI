@@ -1,10 +1,96 @@
-@if (props$ | async; as props) {
-@for (prop of props; track prop.name) {
-<div>
-    {{ prop.name }}
-</div>
-<div>
-    {{ prop.defaultValue }}
-</div>
-}
-}
+<form [formGroup]="form">
+
+  @for (field of fields; track field.prop.name) {
+
+    <div class="property">
+
+      <div class="property__info">
+
+        <div class="property__name">
+          {{ field.prop.name }}
+        </div>
+
+        <div class="property__type">
+          {{ field.prop.type.raw }}
+        </div>
+
+      </div>
+
+
+      <div class="property__control">
+
+        @switch (field.controlType) {
+
+
+          @case ('radio') {
+
+            <div class="property__radio-group">
+
+              @for (
+                option of field.options;
+                track option.label
+              ) {
+
+                <label class="property__radio">
+
+                  <input
+                    type="radio"
+                    [formControlName]="field.prop.name"
+                    [value]="option.value"
+                  />
+
+                  <span>
+                    {{ option.label }}
+                  </span>
+
+                </label>
+
+              }
+
+            </div>
+
+          }
+
+
+          @case ('select') {
+
+            <select
+              [formControlName]="field.prop.name"
+            >
+
+              @for (
+                option of field.options;
+                track option.label
+              ) {
+
+                <option
+                  [ngValue]="option.value"
+                >
+                  {{ option.label }}
+                </option>
+
+              }
+
+            </select>
+
+          }
+
+
+          @default {
+
+            <input
+              type="text"
+              [formControlName]="field.prop.name"
+            />
+
+          }
+
+        }
+
+      </div>
+
+    </div>
+
+  }
+
+</form>

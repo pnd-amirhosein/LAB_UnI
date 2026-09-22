@@ -1,0 +1,61 @@
+<div
+  #viewport
+  class="canvas"
+
+  [class.canvas--dragging]="dragging"
+
+  [style.background-position]="backgroundPosition"
+
+  (pointerdown)="onPointerDown($event)"
+  (pointermove)="onPointerMove($event)"
+  (pointerup)="onPointerUp($event)"
+  (pointercancel)="onPointerUp($event)"
+
+  (wheel)="onWheel($event)">
+
+    <!--
+    WORLD
+    Handles X/Y navigation only.
+  -->
+    <div class="canvas-world" [style.transform]="worldTransform">
+
+        <!--
+      ZOOM LAYER
+      Uses CSS zoom instead of transform: scale().
+      The browser renders the DOM at the requested
+      magnification instead of stretching the world.
+    -->
+        <div class="canvas-zoom" [style.zoom]="zoom">
+
+            <div class="canvas-content">
+                <ng-content />
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!--
+    UI belongs to the viewport, not the world.
+    It therefore never pans or zooms.
+  -->
+    <div class="canvas-toolbar">
+
+        <button type="button" title="Zoom out" (click)="zoomOut()">
+            −
+        </button>
+
+
+        <button type="button" title="Reset view" (click)="reset()">
+            {{ zoomPercentage }}%
+        </button>
+
+
+        <button type="button" title="Zoom in" (click)="zoomIn()">
+            +
+        </button>
+
+    </div>
+
+</div>

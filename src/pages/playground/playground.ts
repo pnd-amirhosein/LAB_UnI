@@ -8,12 +8,13 @@ import { AsyncPipe } from '@angular/common';
 import { EuiBadge } from 'ensemble-ui/angular';
 import { PropertiesComponent } from './components/properties/properties';
 import { TokensComponent } from './components/tokens/tokens';
+import { CanvasComponent } from './components/canvas/canvas';
 
 @Component({
     selector: 'eui-playground',
     templateUrl: './playground.html',
     styleUrls: ['./playground.scss'],
-    imports: [AsyncPipe, EuiBadge, PropertiesComponent, TokensComponent]
+    imports: [AsyncPipe, EuiBadge, PropertiesComponent, TokensComponent, CanvasComponent]
 })
 export class PlaygroundComponent implements OnInit, AfterViewInit {
 
