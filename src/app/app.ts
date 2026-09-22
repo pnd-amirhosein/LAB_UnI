@@ -1,10 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { EuiButton } from 'ensemble-ui/angular';
+import { LayoutComponent } from '../layout/layout/layout';
 
 @Component({
   selector: 'eui-root',
-  imports: [RouterOutlet, EuiButton],
+  imports: [RouterOutlet, LayoutComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
